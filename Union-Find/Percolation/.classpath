@@ -6,6 +6,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="lib" path="E:/Study/GT/Coursera/Algorithms/CouseraAlgorithms/Union-Find/Percolation/algs4.jar"/>
+	<classpathentry kind="lib" path="D:/学习/GT/Coursera/Algorithm/Homework/CouseraAlgorithms/algs4.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
