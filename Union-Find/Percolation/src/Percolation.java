@@ -18,7 +18,7 @@ public class Percolation
     	} 	
     }
     
-    // opens the site (row, col) if it is not open already
+    /*// opens the site (row, col) if it is not open already
     public void open(int row, int col)
 
     // is the site (row, col) open?
@@ -32,11 +32,11 @@ public class Percolation
 
     // does the system percolate?
     public boolean percolates()
-
+	*/
     // test client (optional)
     public static void main(String[] args)
     {
-    	percolation = new Percolation;
+    	Percolation percolation = new Percolation(10);
     	
     }
     private boolean[][] theSite;
