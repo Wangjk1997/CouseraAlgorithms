@@ -9,9 +9,14 @@ public class Percolation
     private int numberOfOpenSites = 0;
     private int size = 0;
     // creates n-by-n grid, with all sites initially blocked
-    public Percolation(int n)
+    // add Exception
+    public Percolation(int n) throws IllegalArgumentException
     {
     	size = n;
+    	if(n <= 0)
+    	{
+    		throw new IllegalArgumentException();
+    	}
     	theSite = new boolean[n][n];
     	for(boolean[] line: theSite)
     	{
@@ -32,21 +37,26 @@ public class Percolation
     	for(int num = 0; num < n; num ++)
     	{
     		theSiteID[0][num] = 0;
-    		//theSiteID[n - 1][num] = -2;
+    		theSiteID[n - 1][num] = n * n - 1;
     	}
 
     	for(int[] line: theSiteID)
     	{
     		for(int element: line)
     		{
-    			//System.out.println(element);
+    			System.out.println(element);
     		}
     	}
     }
     
     // opens the site (row, col) if it is not open already
-    public void open(int row, int col)
+    // add Exception
+    public void open(int row, int col) throws IllegalArgumentException 
     {
+    	if(outOfRange(row, col) == true)
+    	{
+    		throw new IllegalArgumentException();
+    	}
     	theSite[row - 1][col - 1] = true;
     	//without weightedUnion
     	if(row < size)
@@ -96,14 +106,24 @@ public class Percolation
     	numberOfOpenSites ++;
     }
     // is the site (row, col) open?
-    public boolean isOpen(int row, int col)
+    // add Exception
+    public boolean isOpen(int row, int col) throws IllegalArgumentException
     {
+    	if(outOfRange(row, col) == true)
+    	{
+    		throw new IllegalArgumentException();
+    	}
     	return theSite[row - 1][col - 1];
     }
 
     // is the site (row, col) full?
+    // add Exception
     public boolean isFull(int row, int col)
     {
+    	if(outOfRange(row, col) == true)
+    	{
+    		throw new IllegalArgumentException();
+    	}
     	return isOpen(row, col) && (rootOfSite(row, col) == rootOfSite(1,1));
     }
 
@@ -116,43 +136,20 @@ public class Percolation
     // does the system percolate?
     public boolean percolates()
     {
-    	for(int num = 0; num < size; num ++)
+    	if(rootOfSite(size, size) == rootOfSite(1, 1))
     	{
-    		if(theSiteID[size - 1][num] == 0)
-    		{
-    			return true;
-    		}
+    		return true;
     	}
-    	return false;
+    	else
+    	{
+    		return false;
+    	}	
     }
     // test client (optional)
     public static void main(String[] args)
     {
-    	/*Percolation percolation = new Percolation(10);
-    	percolation.open(1,5);
-    	System.out.println(percolation.rootOfSite(2,5));
-    	percolation.open(2,5);
-    	System.out.println(percolation.rootOfSite(1,5));
-    	System.out.println(percolation.rootOfSite(2,5));
-    	System.out.println(percolation.rootOfSite(2,6));
-    	percolation.open(2,6);
-    	System.out.println(percolation.rootOfSite(2,6));
-    	percolation.open(2,10);
-    	System.out.println(percolation.rootOfSite(2,10));
-    	percolation.open(2,9);
-    	percolation.open(2,7);
-    	percolation.open(2,8);
-    	
-    	System.out.println(percolation.rootOfSite(2,10));
-    	System.out.println(percolation.rootOfSite(2,9));
-    	System.out.println(percolation.isFull(2, 10));
-    	System.out.println(percolation.rootOfSite(1,5));
-    	System.out.println(percolation.rootOfSite(1,1));
-    	System.out.println(percolation.rootOfSite(2,6));
-    	System.out.println(percolation.rootOfSite(2,7));
-    	System.out.println(percolation.rootOfSite(2,8));*/
-
-    	
+    	Percolation percolation = new Percolation(2);
+    	percolation.open(11,0);
     }
     public int rootOfSite(int row, int col)
     {
@@ -168,5 +165,16 @@ public class Percolation
     		return realNum;
     	}
     }
-
+    private boolean outOfRange(int row, int col)
+    {
+    	if(row < 1||row > size)
+    	{
+    		return true;
+    	}
+    	if(col < 1||col > size)
+    	{
+    		return true;
+    	}
+    	return false;
+    }
 }
