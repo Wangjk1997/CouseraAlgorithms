@@ -1,13 +1,13 @@
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 import java.lang.Math;
+
 public class PercolationStats {
     // perform independent trials on an n-by-n grid
 	private int size = 0;
 	private int trials = 0;
 	private double[] threshold;
-    public PercolationStats(int n, int trials) throws IllegalArgumentException
+    public PercolationStats(int n, int trials)
     {
     	size = n;
     	this.trials = trials;

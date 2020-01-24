@@ -1,7 +1,3 @@
-import edu.princeton.cs.algs4.StdRandom;
-import edu.princeton.cs.algs4.StdRandom.*;
-import edu.princeton.cs.algs4.StdStats;
-import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
 public class Percolation 
 {
@@ -11,7 +7,7 @@ public class Percolation
     private int size = 0;
     // creates n-by-n grid, with all sites initially blocked
     // add Exception
-    public Percolation(int n) throws IllegalArgumentException
+    public Percolation(int n)
     {
     	size = n;
     	if(n <= 0)
@@ -44,7 +40,7 @@ public class Percolation
     
     // opens the site (row, col) if it is not open already
     // add Exception
-    public void open(int row, int col) throws IllegalArgumentException 
+    public void open(int row, int col)
     {
     	if(outOfRange(row, col) == true)
     	{
@@ -103,7 +99,7 @@ public class Percolation
     }
     // is the site (row, col) open?
     // add Exception
-    public boolean isOpen(int row, int col) throws IllegalArgumentException
+    public boolean isOpen(int row, int col)
     {
     	if(outOfRange(row, col) == true)
     	{
@@ -147,7 +143,7 @@ public class Percolation
     	Percolation percolation = new Percolation(2);
 
     }
-    public int rootOfSite(int row, int col)
+    private int rootOfSite(int row, int col)
     {
     	int realNum = (row - 1) * size + (col - 1);
     	if(theSiteID[row - 1][col - 1] != realNum)
