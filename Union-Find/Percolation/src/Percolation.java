@@ -1,4 +1,5 @@
 import edu.princeton.cs.algs4.StdRandom;
+import edu.princeton.cs.algs4.StdRandom.*;
 import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
 
@@ -38,14 +39,6 @@ public class Percolation
     	{
     		theSiteID[0][num] = 0;
     		theSiteID[n - 1][num] = n * n - 1;
-    	}
-
-    	for(int[] line: theSiteID)
-    	{
-    		for(int element: line)
-    		{
-    			System.out.println(element);
-    		}
     	}
     }
     
@@ -149,7 +142,7 @@ public class Percolation
     public static void main(String[] args)
     {
     	Percolation percolation = new Percolation(2);
-    	percolation.open(11,0);
+
     }
     public int rootOfSite(int row, int col)
     {
