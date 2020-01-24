@@ -50,53 +50,56 @@ public class Percolation
     	{
     		throw new IllegalArgumentException();
     	}
-    	theSite[row - 1][col - 1] = true;
-    	//without weightedUnion
-    	if(row < size)
+    	if(!isOpen(row, col))
     	{
-    		if(isOpen(row + 1, col))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row + 1, col) / size + 1;
-    			int neighbotRootCol = rootOfSite(row + 1, col) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
+    		theSite[row - 1][col - 1] = true;
+        	//without weightedUnion
+        	if(row < size)
+        	{
+        		if(isOpen(row + 1, col))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row + 1, col) / size + 1;
+        			int neighbotRootCol = rootOfSite(row + 1, col) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(col < size)
+        	{
+        		if(isOpen(row, col + 1))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row, col + 1) / size + 1;
+        			int neighbotRootCol = rootOfSite(row, col + 1) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(row > 1)
+        	{
+        		if(isOpen(row - 1, col))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row - 1, col) / size + 1;
+        			int neighbotRootCol = rootOfSite(row - 1, col) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(col > 1)
+        	{
+        		if(isOpen(row, col - 1))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row, col - 1) / size + 1;
+        			int neighbotRootCol = rootOfSite(row, col - 1) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	numberOfOpenSites ++;
     	}
-    	if(col < size)
-    	{
-    		if(isOpen(row, col + 1))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row, col + 1) / size + 1;
-    			int neighbotRootCol = rootOfSite(row, col + 1) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	if(row > 1)
-    	{
-    		if(isOpen(row - 1, col))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row - 1, col) / size + 1;
-    			int neighbotRootCol = rootOfSite(row - 1, col) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	if(col > 1)
-    	{
-    		if(isOpen(row, col - 1))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row, col - 1) / size + 1;
-    			int neighbotRootCol = rootOfSite(row, col - 1) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	numberOfOpenSites ++;
     }
     // is the site (row, col) open?
     // add Exception
