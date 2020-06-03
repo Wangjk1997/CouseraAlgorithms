@@ -1,6 +1,8 @@
+
 import edu.princeton.cs.algs4.StdRandom;
 import edu.princeton.cs.algs4.StdStats;
 import edu.princeton.cs.algs4.WeightedQuickUnionUF;
+
 
 public class Percolation 
 {
@@ -10,7 +12,7 @@ public class Percolation
     private int size = 0;
     // creates n-by-n grid, with all sites initially blocked
     // add Exception
-    public Percolation(int n) throws IllegalArgumentException
+    public Percolation(int n)
     {
     	size = n;
     	if(n <= 0)
@@ -43,63 +45,66 @@ public class Percolation
     
     // opens the site (row, col) if it is not open already
     // add Exception
-    public void open(int row, int col) throws IllegalArgumentException 
+    public void open(int row, int col)
     {
     	if(outOfRange(row, col) == true)
     	{
     		throw new IllegalArgumentException();
     	}
-    	theSite[row - 1][col - 1] = true;
-    	//without weightedUnion
-    	if(row < size)
+    	if(!isOpen(row, col))
     	{
-    		if(isOpen(row + 1, col))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row + 1, col) / size + 1;
-    			int neighbotRootCol = rootOfSite(row + 1, col) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
+    		theSite[row - 1][col - 1] = true;
+        	//without weightedUnion
+        	if(row < size)
+        	{
+        		if(isOpen(row + 1, col))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row + 1, col) / size + 1;
+        			int neighbotRootCol = rootOfSite(row + 1, col) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(col < size)
+        	{
+        		if(isOpen(row, col + 1))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row, col + 1) / size + 1;
+        			int neighbotRootCol = rootOfSite(row, col + 1) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(row > 1)
+        	{
+        		if(isOpen(row - 1, col))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row - 1, col) / size + 1;
+        			int neighbotRootCol = rootOfSite(row - 1, col) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	if(col > 1)
+        	{
+        		if(isOpen(row, col - 1))
+        		{
+        	    	int currentRootRow = rootOfSite(row, col) / size + 1;
+        			int currentRootCol = rootOfSite(row, col) % size + 1;
+        			int neighborRootRow = rootOfSite(row, col - 1) / size + 1;
+        			int neighbotRootCol = rootOfSite(row, col - 1) % size + 1;
+        			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
+        		}
+        	}
+        	numberOfOpenSites ++;
     	}
-    	if(col < size)
-    	{
-    		if(isOpen(row, col + 1))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row, col + 1) / size + 1;
-    			int neighbotRootCol = rootOfSite(row, col + 1) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	if(row > 1)
-    	{
-    		if(isOpen(row - 1, col))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row - 1, col) / size + 1;
-    			int neighbotRootCol = rootOfSite(row - 1, col) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	if(col > 1)
-    	{
-    		if(isOpen(row, col - 1))
-    		{
-    	    	int currentRootRow = rootOfSite(row, col) / size + 1;
-    			int currentRootCol = rootOfSite(row, col) % size + 1;
-    			int neighborRootRow = rootOfSite(row, col - 1) / size + 1;
-    			int neighbotRootCol = rootOfSite(row, col - 1) % size + 1;
-    			theSiteID[currentRootRow - 1][currentRootCol - 1] = theSiteID[neighborRootRow - 1][neighbotRootCol - 1];
-    		}
-    	}
-    	numberOfOpenSites ++;
     }
     // is the site (row, col) open?
     // add Exception
-    public boolean isOpen(int row, int col) throws IllegalArgumentException
+    public boolean isOpen(int row, int col)
     {
     	if(outOfRange(row, col) == true)
     	{
@@ -143,7 +148,7 @@ public class Percolation
     	Percolation percolation = new Percolation(2);
 
     }
-    public int rootOfSite(int row, int col)
+    private int rootOfSite(int row, int col)
     {
     	int realNum = (row - 1) * size + (col - 1);
     	if(theSiteID[row - 1][col - 1] != realNum)
