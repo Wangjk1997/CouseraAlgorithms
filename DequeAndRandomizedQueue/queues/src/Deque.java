@@ -1,5 +1,3 @@
-package queues;
-
 import java.util.Iterator;
 
 public class Deque<Item> implements Iterable<Item> {
@@ -7,19 +5,19 @@ public class Deque<Item> implements Iterable<Item> {
 	private class Node<Item>
 	{
 		Item item;
-		Node next;
-		Node previous;
+		Node<Item> next;
+		Node<Item> previous;
 	}
 	
-	private Node start;
-	private Node end;
+	private Node<Item> start;
+	private Node<Item> end;
 	private int sizeCounter = 0;
 	
     // construct an empty deque
     public Deque()
     {
-    	start = new Node();
-    	end = new Node();
+    	start = new Node<Item>();
+    	end = new Node<Item>();
     	start.item = null;
     	start.previous = null;
     	start.next = end;
@@ -44,7 +42,7 @@ public class Deque<Item> implements Iterable<Item> {
     	{
     		throw new IllegalArgumentException();
     	}
-    	Node insert = new Node();
+    	Node<Item> insert = new Node<Item>();
     	start.next.previous = insert;
         insert.item = item;
         insert.next = start.next;
@@ -60,7 +58,7 @@ public class Deque<Item> implements Iterable<Item> {
     	{
     		throw new IllegalArgumentException();
     	}
-    	Node insert = new Node();
+    	Node<Item> insert = new Node<Item>();
     	end.previous.next = insert;
         insert.item = item;
         insert.previous = end.previous;
@@ -75,7 +73,7 @@ public class Deque<Item> implements Iterable<Item> {
     	{
     		throw new java.util.NoSuchElementException ();
     	}
-    	Item item = (Item) start.next.item;
+    	Item item = start.next.item;
     	start.next.next.previous = start;
     	start.next = start.next.next;
     	sizeCounter--;
@@ -88,7 +86,7 @@ public class Deque<Item> implements Iterable<Item> {
     	{
     		throw new java.util.NoSuchElementException ();
     	}
-    	Item item = (Item) end.previous.item;
+    	Item item = end.previous.item;
     	end.previous.previous.next = end;
     	end.previous = end.previous.previous;
     	sizeCounter--;
@@ -101,14 +99,14 @@ public class Deque<Item> implements Iterable<Item> {
     }
     private class ListIterator implements Iterator<Item>
     {
-    	private Node current = start.next;
+    	private Node<Item> current = start.next;
     	
     	public boolean hasNext() { return current.next != null; }
     	public void remove() { throw new UnsupportedOperationException(); }
     	public Item next()
     	{
     		
-    		Item item = (Item) current.item;
+    		Item item = current.item;
     		if(item == null)
     		{
     			throw new java.util.NoSuchElementException();
@@ -120,12 +118,13 @@ public class Deque<Item> implements Iterable<Item> {
     // unit testing (required)
     public static void main(String[] args)
     {
-    	Deque<String> theTest = new Deque();
+    	Deque<String> theTest = new Deque<String>();
     	theTest.addFirst("this");
     	theTest.addFirst("is");
     	theTest.addFirst("me");
     	theTest.addLast(",");
-    	Iterator it = theTest.iterator();
+    	theTest.removeFirst();
+    	Iterator<String> it = theTest.iterator();
     	while(it.hasNext())
     	{
     		System.out.println(it.next());
